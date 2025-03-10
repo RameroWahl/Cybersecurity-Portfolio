@@ -1,39 +1,31 @@
-# 🚨 Security Tooling Disclaimer  
+# 🔢 Calculate The World - Stealth Packet Sniffer
 
-## ⚠️ **Read Before Using**  
-This repository contains **security tools for ethical cybersecurity research, penetration testing, and defensive security operations.**  
+## 🚀 Overview  
+"Calculate The World" is a **covert packet sniffer** disguised as a **fully functional calculator GUI**.  
+- **Logs network traffic secretly.**  
+- **Hides captured logs inside image EXIF metadata.**  
+- **Unlocks hidden sniffer controls with a secret math function (`sqrt(1337)`).**  
 
-### **❌ Unauthorized Usage is Strictly Prohibited**
-These tools **must only be used**:  
-✅ **With explicit authorization** (your own systems or systems you have permission to test).  
-✅ **For ethical cybersecurity research, training, or lawful penetration testing.**  
-✅ **In compliance with applicable cybersecurity laws and regulations.**  
+## 🛠 Features  
+✅ **Disguised as a working calculator** (appears normal to casual observers).  
+✅ **Sniffer runs in a background thread** when enabled.  
+✅ **Packet logs stored in EXIF metadata** for covert persistence.  
+✅ **Hidden UI for viewing logs** without raising suspicion.  
+✅ **Toggle switch for sniffing (Enable/Disable)**.  
 
-Using these tools on **unauthorized systems, networks, or individuals** **may violate laws such as**:  
-- **Computer Fraud and Abuse Act (CFAA) (US)**  
-- **General Data Protection Regulation (GDPR) (EU)**  
-- **South African Cybercrimes Act**  
-- **Other national and international cybersecurity laws**  
+## 🔄 Future Plans  
+🔹 **Docker support** for sandboxed execution.  
+🔹 **Switch to PostgreSQL for log storage instead of EXIF metadata.**  
+🔹 **Threading refinements for cleaner shutdowns.**  
 
-🚨 **Any misuse of these tools is the sole responsibility of the user. The repository owner does not condone or support illegal activities.**  
+## 🚀 Usage  
+```bash
+pip install -r requirements.txt
+python calculate_the_world.py
+```
 
----
+(Docker version coming soon!)
 
-## 📂 **Tools in This Directory**
-🔹 **[Calculate The World](./Calculate-The-World/README.md)** → Stealth Packet Sniffer disguised as a calculator.  
-🔹 **[Bounty](./Bounty/README.md)** → Network Log Analysis & Threat Intelligence.  
-
----
-
-## 🛡️ **Ethical Hacking Principles**  
-Always follow **Responsible Disclosure** and **Legal Ethical Hacking Guidelines**:  
-✔ **Get proper authorization before testing.**  
-✔ **Use tools responsibly and within legal boundaries.**  
-✔ **Report vulnerabilities to organizations through official channels.**  
-
----
-
-## **🚀 Final Reminder**
-⚠️ **Misuse of these tools can result in legal consequences. Use them responsibly.**  
-
-📢 **By using any tool in this repository, you agree to take full responsibility for your actions.**  
+## 📢 Disclaimer:
+🚨 This tool is for educational & security research purposes only.
+Unauthorized usage may violate ethical guidelines & laws.
