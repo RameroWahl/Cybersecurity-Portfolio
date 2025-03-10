@@ -17,6 +17,7 @@
 ```bash
 pip install -r requirements.txt
 python bounty.py
+```
 
 ## 🔄 Future Plans
 🔹 Integrate with Docker for modular deployment.
