@@ -1,0 +1,12 @@
+# Ignore Docker volumes & data
+docker/postgres-data/
+docker/postgres_data/
+*.log
+*.env
+
+# Ignore Python virtual environments
+venv/
+__pycache__/
+
+# Ignore compiled files
+*.pyc
