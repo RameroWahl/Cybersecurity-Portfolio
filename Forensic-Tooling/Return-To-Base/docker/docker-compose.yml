@@ -1,19 +1,41 @@
+# Define services
+
 services:
-  postgres:
-    image: postgres:14
-    container_name: return_to_base_db
-    restart: always
-    env_file:
-      - ../.env
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
     ports:
-      - "5432:5432"
+      - "27017:27017"
     volumes:
-      - ./01-postgres-init.sql:/docker-entrypoint-initdb.d/01-postgres-init.sql:ro
-      - ./02-create-tables.sql:/docker-entrypoint-initdb.d/02-create-tables.sql:ro
-      - ./03-classification-rules.sql:/docker-entrypoint-initdb.d/03-classification-rules.sql:ro
-      - ./04-insert-data.sql:/docker-entrypoint-initdb.d/04-insert-data.sql:ro
-      - ./05-case-retrieval.sql:/docker-entrypoint-initdb.d/05-case-retrieval.sql:ro
-      - ./06-threat-classification.sql:/docker-entrypoint-initdb.d/06-threat-classification.sql:ro
+      - mongodb_data:/data/db
+
+  forensic_api:
+    build: ../src
+    container_name: forensic_api
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongodb
+
+  process_data:
+    build: ../src
+    container_name: process_data
+    depends_on:
+      - mongodb
+
+  query_data:
+    build: ../src
+    container_name: query_data
+    depends_on:
+      - mongodb
+
+  insert_data:
+    build: ../src
+    container_name: insert_data
+    depends_on:
+      - mongodb
+
+# Define volumes
 
 volumes:
-  postgres-data:
+  mongodb_data:
