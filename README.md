@@ -1,20 +1,26 @@
-# Cybersecurity Portfolio - Ramero Wahl
+
+# 🛡️ Cybersecurity Portfolio - Ramero Wahl
 
 ## Overview
-Welcome to **Ramero Wahl's Cybersecurity Portfolio**. This repository contains a suite of security tools developed for **offensive, defensive, and forensic security operations**. Each project is structured to be modular, scalable, and practical for real-world cybersecurity applications.
+Welcome to **Ramero Wahl's Cybersecurity Portfolio**. This repository contains a suite of security tools, forensic tools, and **security audits** developed for **offensive, defensive, and forensic cybersecurity operations**. Each project is structured to be modular, scalable, and practical for real-world applications.
 
 ---
-## **🔍 Repository Structure**
+## 🔍 Repository Structure
 📂 **Cybersecurity-Portfolio/** _(Root folder)_
 - 📂 **Security-Tooling/** _(Offensive/Defensive Security Tools)_
   - 📂 **Calculate-The-World/** _(Stealth Packet Sniffer disguised as a calculator)_
   - 📂 **Bounty/** _(Network Log Analysis & Threat Detection)_
+  - 📂 **Lasso/** _(Abandoned MiTM Attack Tool - Archived for reference)_
 - 📂 **Forensic-Tooling/** _(Forensic Analysis & Threat Detection)_
   - 📂 **Return-To-Base/** _(Full forensic analysis suite)_
+- 📂 **Security-Audits/** _(Simulated Security Audits & Red Team Exercises)_
+  - 📂 **Botium-Toys-Security-Analysis/** _(Platform Security Review with Matrix Evaluation)_
+  - 📂 **Operation-Lazarus/** _(Red Team Security Audit - Node Hopping & Data Exfiltration)_
 - 📜 `README.md` _(This document)_
+- 📜 `CHANGELOG.md` _(Full Portfolio Change Log)_
 
 ---
-## **🚀 Featured Projects**
+## 🚀 Featured Projects
 
 ### 🔹 **Forensic Tooling - Return-To-Base**
 🔍 **Purpose:** A forensic tool that detects malware, rootkits, and anti-forensic techniques by analyzing **RAM, file systems, and threat intelligence**.
@@ -47,14 +53,45 @@ Welcome to **Ramero Wahl's Cybersecurity Portfolio**. This repository contains a
 
 📂 **Path:** [`Security-Tooling/Bounty/`](https://github.com/RameroWahl/Cybersecurity-Portfolio/tree/main/Security-Tooling/Bounty)
 
+### 🔹 **Security Tooling - Lasso**
+🕸️ **Purpose:** A **Man-in-the-Middle (MiTM) attacker tool** designed to intercept, manipulate, and log traffic during controlled testing scenarios.  
+⚠️ **Status:** *Abandoned Project* — Preserved for historical reference only.
+- **Technologies:** Python, Scapy, Packet Manipulation
+- **Key Features (Abandoned):**
+  - **Traffic Interception**
+  - **Payload Injection Testing**
+  - **MiTM Scenario Simulation**
+
+📂 **Path:** [`Security-Tooling/Lasso/`](https://github.com/RameroWahl/Cybersecurity-Portfolio/tree/main/Security-Tooling/Lasso)
+
+### 🔹 **Security Audit - Operation Lazarus**
+🛡️ **Purpose:** A simulated **Red Team Security Audit** demonstrating multi-stage exploitation, persistence via cron jobs, and full data exfiltration.
+- **Technologies:** Python, Apache CVE exploitation, cron abuse, SSH lateral movement.
+- **Key Features:**
+  - **Privilege Escalation via /tmp poisoning**
+  - **AI Model (Lazarus) Extraction**
+  - **Professional Audit-Style Reporting (PDF, Markdown)**
+
+📂 **Path:** [`Security-Audits/Operation-Lazarus/`](https://github.com/RameroWahl/Cybersecurity-Portfolio/tree/main/Security-Audits/Operation-Lazarus)
+
+### 🔹 **Security Audit - Botium Toys Security Analysis**
+🛡️ **Purpose:** A structured security analysis using a security matrix to evaluate potential vulnerabilities in the Botium Toys platform.
+- **Technologies:** Manual Review, Matrix-Based Security Evaluation
+- **Key Features:**
+  - **Platform Threat Identification**
+  - **Risk Assessment Matrix**
+  - **Security Recommendations**
+
+📂 **Path:** [`Security-Audits/Botium-Toys-Security-Analysis/`](https://github.com/RameroWahl/Cybersecurity-Portfolio/tree/main/Security-Audits/Botium-Toys-Security-Analysis)
+
 ---
-## **🛠️ Setup & Installation**
-### **1️⃣ Clone the Repository**
+## 🛠️ Setup & Installation
+### 1️⃣ Clone the Repository
 ```sh
 $ git clone https://github.com/RameroWahl/Cybersecurity-Portfolio.git
 $ cd Cybersecurity-Portfolio/
 ```
-### **2️⃣ Explore Specific Tools**
+### 2️⃣ Explore Specific Tools
 Navigate into the tool you want to use and follow the respective **README.md** for setup instructions.
 
 ```sh
@@ -63,20 +100,23 @@ $ cat README.md  # Read setup instructions
 ```
 
 ---
-## **📢 Contributions & Future Enhancements**
-### ✅ **Current Status:**
-- **Offensive & Defensive Security Tools Active**.
-- **Forensic Tooling Operational**.
-- **Next Step: Expand ML-based Threat Detection.**
+## 📝 Change Log
+For the full project history and recent updates, view the [CHANGELOG.md](./CHANGELOG.md).
 
-### 🚀 **Planned Enhancements:**
-- **Enhance Automation in Forensics & Threat Detection**.
-- **Develop AI-driven Malware Classification**.
-- **Optimize Stealth Capabilities for Red Team Ops**.
+---
+## 📢 Contributions & Future Enhancements
+### ✅ Current Status:
+- **Offensive, Defensive, and Forensic Tools Active**
+- **Red Team Security Audits Operational**
+- **Next Step:** Expand ML-based Threat Detection
+
+### 🚀 Planned Enhancements:
+- Enhance Automation in Forensics & Threat Detection
+- Develop AI-driven Malware Classification
+- Optimize Stealth Capabilities for Red Team Ops
 
 For contributions, feel free to **open a PR or issue** in the GitHub repository.
 
 ---
-### **🔗 Repository Link:**  
+### 🔗 Repository Link:
 📌 **[Cybersecurity-Portfolio](https://github.com/RameroWahl/Cybersecurity-Portfolio)**
-
