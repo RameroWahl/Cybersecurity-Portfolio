@@ -1,4 +1,5 @@
-import os, sys, time, base64, sqlite3, socket, ipaddress
+# bounty.py
+import os, sys, time, base64, sqlite3, socket, ipaddress, re
 from collections import Counter
 from contextlib import contextmanager
 
@@ -10,8 +11,12 @@ import vt  # pip install vt-py
 
 VT_API_KEY = os.getenv("VT_API_KEY")
 DB_PATH = os.getenv("BOUNTY_DB", "network_logs.db")
-VT_RATE_SLEEP = float(os.getenv("VT_RATE_SLEEP", "16"))  # ~4/min for public keys
+VT_RATE_SLEEP = float(os.getenv("VT_RATE_SLEEP", "16"))  # ~4/min (public API)
 ALERT_THRESHOLD = int(os.getenv("BOUNTY_ALERT_THRESHOLD", "10"))
+
+SESSION_RE = re.compile(
+    r"^#SESSION\s+(START|END)\s+id=(\S+)(?:\s+operator=(\S+))?(?:\s+purpose=(\S+))?(?:\s+filter=(\S+))?\s+(?:started_at|ended_at)=(\S+)"
+)
 
 # ---------- DB helpers ----------
 
@@ -41,6 +46,15 @@ def init_db():
             threat_score INTEGER NOT NULL,
             last_checked DATETIME DEFAULT CURRENT_TIMESTAMP
         )""")
+        c.execute("""
+        CREATE TABLE IF NOT EXISTS sessions (
+            session_id TEXT PRIMARY KEY,
+            operator   TEXT,
+            purpose    TEXT,
+            filter     TEXT,
+            started_at TEXT,
+            ended_at   TEXT
+        )""")
 
 def save_log(conn, source_ip, destination_ip, raw_log):
     conn.execute(
@@ -57,6 +71,18 @@ def save_rep(conn, ip, score):
         "INSERT OR REPLACE INTO ip_reputation (ip, threat_score, last_checked) VALUES (?,?,CURRENT_TIMESTAMP)",
         (ip, score)
     )
+
+def upsert_session(conn, m):
+    typ, sid, op, purp, filt, ts = m.groups()
+    if typ == "START":
+        conn.execute("""
+            INSERT INTO sessions(session_id, operator, purpose, filter, started_at)
+            VALUES(?,?,?,?,?)
+            ON CONFLICT(session_id) DO UPDATE SET operator=excluded.operator,
+                purpose=excluded.purpose, filter=excluded.filter, started_at=excluded.started_at
+        """, (sid, op or "", purp or "", (filt or "").replace("_"," "), ts))
+    else:
+        conn.execute("UPDATE sessions SET ended_at=? WHERE session_id=?", (ts, sid))
 
 # ---------- EXIF -> logs ----------
 
@@ -77,6 +103,9 @@ def decode_logs(hidden_logs):
         s = line.strip()
         if not s or s == "Hidden Logs Initialized":
             continue
+        if s.startswith("#SESSION "):
+            decoded.append(s)  # keep session meta lines as-is
+            continue
         try:
             s += "=" * (-len(s) % 4)
             decoded.append(base64.b64decode(s).decode("utf-8", errors="ignore"))
@@ -94,7 +123,6 @@ def is_public_ip(ip_str: str) -> bool:
         return False
 
 def check_ip_virustotal_batch(conn, ips):
-    """Check a set of public IPs; reuse client and sleep between calls to respect VT public limits."""
     if not VT_API_KEY:
         print("⚠️ VT_API_KEY not set; skipping VirusTotal checks.")
         return
@@ -112,7 +140,7 @@ def check_ip_virustotal_batch(conn, ips):
                 save_rep(conn, ip, malicious)
             except Exception as e:
                 print(f"⚠️ VT error for {ip}: {e}")
-            time.sleep(VT_RATE_SLEEP)  # simple rate limiter
+            time.sleep(VT_RATE_SLEEP)  # naive rate limiter
     finally:
         client.close()
 
@@ -124,12 +152,7 @@ def visualize_network(connections, my_ip):
         G.add_edge(src, dst, weight=count)
 
     pos = nx.spring_layout(G, seed=1337)
-    node_colors = []
-    for n in G.nodes():
-        if n == my_ip:
-            node_colors.append("black")
-        else:
-            node_colors.append("darkblue")
+    node_colors = ["black" if n == my_ip else "darkblue" for n in G.nodes()]
 
     plt.figure(figsize=(10, 6))
     nx.draw(G, pos, with_labels=True, node_color=node_colors, edge_color='gray',
@@ -153,21 +176,30 @@ def process_logs():
     image_path = get_image_path()
     exif = load_image_exif(image_path)
     hidden = (exif.get("0th", {}).get(piexif.ImageIFD.ImageDescription, b"") or b"").decode("utf-8", errors="ignore")
-    decoded_logs = decode_logs(hidden)
+    decoded_lines = decode_logs(hidden)
 
     my_ip = socket.gethostbyname(socket.gethostname())
     connections = Counter()
     candidate_vt_ips = set()
 
     with db() as conn:
-        for log in decoded_logs:
+        for line in decoded_lines:
+            # Session metadata lines
+            m = SESSION_RE.match(line)
+            if m:
+                upsert_session(conn, m)
+                continue
+
+            # Flow lines (e.g., "1.2.3.4 -> 5.6.7.8")
+            if "->" not in line:
+                continue
             try:
-                src, dst = [x.strip() for x in log.split(" -> ", 1)]
+                src, dst = [x.strip() for x in line.split(" -> ", 1)]
             except ValueError:
                 continue
-            save_log(conn, src, dst, log)
+
+            save_log(conn, src, dst, line)
             connections[(src, dst)] += 1
-            # VT only for public destination IPs (don’t leak internals)
             if is_public_ip(dst):
                 candidate_vt_ips.add(dst)
 
