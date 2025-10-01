@@ -1,5 +1,13 @@
-
 # 📜 Cybersecurity Portfolio - Change Log
+
+## [2025-10-01]
+- Added **Courier-Guy-Phishing-Scam - Phishing Audit** under `/Security-Audits/Courier-Guy-Phishing-Scam/`
+- Included `Phishing-scam.md` detailed incident report
+- Saved raw phishing HTML (`phishing_page.html`) for static analysis only
+- Created `README.md` for overview, methodology, and safe-handling notes
+- Escalation and takedown confirmed through SOC and Cloudflare reporting
+
+---
 
 ## [2025-03-18]
 - Added **Operation Lazarus - Red Team Security Audit Simulation** under `/Security-Audits/Operation-Lazarus/`
