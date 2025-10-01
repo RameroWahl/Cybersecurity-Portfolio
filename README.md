@@ -16,6 +16,7 @@ Welcome to **Ramero Wahl's Cybersecurity Portfolio**. This repository contains a
 - 📂 **Security-Audits/** _(Simulated Security Audits & Red Team Exercises)_
   - 📂 **Botium-Toys-Security-Analysis/** _(Platform Security Review with Matrix Evaluation)_
   - 📂 **Operation-Lazarus/** _(Red Team Security Audit - Node Hopping & Data Exfiltration)_
+  - 📂 **Courier-Guy-Phishing-Scam/** _(Phishing Scam Audit - How one SMS could be fuel to act)_
 - 📜 `README.md` _(This document)_
 - 📜 `CHANGELOG.md` _(Full Portfolio Change Log)_
 
