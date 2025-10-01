@@ -1,0 +1,2 @@
+# Ignore phishing HTML samples from language stats
+Security-Audits/**/*.html linguist-detectable=false
