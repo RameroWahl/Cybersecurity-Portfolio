@@ -85,6 +85,18 @@ Welcome to **Ramero Wahl's Cybersecurity Portfolio**. This repository contains a
 
 📂 **Path:** [`Security-Audits/Botium-Toys-Security-Analysis/`](https://github.com/RameroWahl/Cybersecurity-Portfolio/tree/main/Security-Audits/Botium-Toys-Security-Analysis)
 
+### 🔹 **Security Audit - Courier Guy Phishing Scam** 🆕
+✉️ **Purpose:** Investigation and incident report of a real-world SMS phishing campaign that redirected victims through a shortlink to a Cloudflare R2-hosted phishing kit impersonating *The Courier Guy*. The audit focuses on safe evidence collection, IOC extraction, escalation workflows, and lessons for SOC/brand protection.
+
+- **Technologies:** PowerShell, regex, sandbox analysis, incident reporting workflows.  
+- **Key Features:**
+  - **Discovery & Timeline** — how the SMS was found and expanded from shortlink to R2 bucket.
+  - **Technical Analysis** — HTML inspection, form action (`cc.html`), tracking pixels and indicators of compromise.
+  - **Safe Investigation Guides** — PowerShell snippets and sandbox guidance for SOC analysts.
+  - **Response & Mitigation** — Cloudflare abuse report, Zscaler blocking, SOC sandbox capture, and takedown confirmation.
+  - **Professional Incident Report** — polished Markdown write-up suitable for portfolio & SOC handoff.
+- **Path:** [`Security-Audits/Courier-Guy-Phishing-Scam/`](https://github.com/RameroWahl/Cybersecurity-Portfolio/tree/main/Security-Audits/Courier-Guy-Phishing-Scam)
+
 ---
 ## 🛠️ Setup & Installation
 ### 1️⃣ Clone the Repository
